@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class EnemyDriver : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour
 {
-	public float Speed { get; private set; } = 1f;
+	public abstract float Speed { get; }
+
+	protected abstract float hp { get; set; }
+	public float Hp { get => hp; }
 
 	Tilemap tilemap;
 	Vector3Int direction = Vector3Int.down;
@@ -14,6 +17,16 @@ public class EnemyDriver : MonoBehaviour
 	private void Awake()
 	{
 		tilemap = transform.parent.parent.GetComponent<Tilemap>();
+	}
+
+	public void DamageFrom(TowerBase tower)
+	{
+		hp -= tower.Power;
+
+		if (hp <= 0)
+		{
+			Destroy(gameObject);
+		}
 	}
 
 	// Update is called once per frame

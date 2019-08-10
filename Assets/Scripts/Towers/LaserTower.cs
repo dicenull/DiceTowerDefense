@@ -7,8 +7,8 @@ public class LaserTower : TowerBase
 {
 	public override float Range => 3f;
 
-	public override float Damage => 5f;
+	public override float Power => 5f;
 
-	public override float ReloadTime => 2.3f;
+	public override float Interval => 1.5f;
 
 }
