@@ -6,14 +6,14 @@ using UnityEngine.Tilemaps;
 public class TowerSetter : MonoBehaviour
 {
 	[SerializeField]
-	private Tilemap FieldTile;
+	private GameObject TowerObj;
 
-	[SerializeField]
-	private Tilemap TowerTile;
+	private Tilemap fieldTile;
 
     // Start is called before the first frame update
     void Start()
     {
+		fieldTile = GetComponent<Tilemap>();
     }
 	
     // Update is called once per frame
@@ -23,12 +23,15 @@ public class TowerSetter : MonoBehaviour
 		{
 			var mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-			var fieldPos = FieldTile.WorldToCell(mousePoint);
-			var towerPos = TowerTile.WorldToCell(mousePoint);
+			var fieldPos = fieldTile.WorldToCell(mousePoint);
 
-			if(FieldTile.HasTile(fieldPos))
+			if(fieldTile.HasTile(fieldPos))
 			{
-				TowerTile.SetTile(towerPos, new LaserTower());
+				var anchoredPos = fieldPos + new Vector3(0.5f, 0.5f);
+
+				var tower = 
+					Instantiate(TowerObj, anchoredPos, Quaternion.identity, transform);
+
 			}
 		}
     }

@@ -19,9 +19,10 @@ public class EnemyDriver : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		if(moveAmount >= 1f)
+		if(moveAmount > 1f)
 		{
 			var currentPos = tilemap.LocalToCell(transform.position);
+			
 			// 進行方向一つ先のタイル座標
 			var nextPos =  currentPos + direction;
 
@@ -40,6 +41,7 @@ public class EnemyDriver : MonoBehaviour
 					direction.RotateRight();
 					transform.Rotate(0, 0, 90);
 				}
+
 			}
 
 			moveAmount = 0f;
