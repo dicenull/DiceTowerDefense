@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
 public abstract class EnemyBase : MonoBehaviour
@@ -11,6 +12,7 @@ public abstract class EnemyBase : MonoBehaviour
 	public float Hp { get => hp; }
 
 	Tilemap tilemap;
+	Slider hpSlider;
 	Vector3Int direction = Vector3Int.down;
 	float moveAmount = 0f;
 
@@ -19,9 +21,17 @@ public abstract class EnemyBase : MonoBehaviour
 		tilemap = transform.parent.parent.GetComponent<Tilemap>();
 	}
 
+	private void Start()
+	{
+		hpSlider = transform.Find("Canvas/HpBar").GetComponent<Slider>();
+		hpSlider.maxValue = hp;
+		hpSlider.value = hp;
+	}
+
 	public void DamageFrom(TowerBase tower)
 	{
 		hp -= tower.Power;
+		hpSlider.value = hp;
 
 		if (hp <= 0)
 		{
