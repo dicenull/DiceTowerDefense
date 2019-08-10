@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoneyDisplay : MonoBehaviour
+public class HpDisplay : MonoBehaviour
 {
-	private MoneyController controller;
+	private GameHpController controller;
 	private Text text;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		controller = MoneyController.Instance;
+		controller = GameHpController.Instance;
 		text = GetComponent<Text>();
 
-		controller.MoneyChanged += Controller_MoneyChanged;
+		controller.HpChanged += Controller_HpChanged;
 		DisplayText();
 	}
 
-	private void Controller_MoneyChanged(object sender, System.EventArgs e)
+	private void Controller_HpChanged(object sender, System.EventArgs e)
 	{
 		DisplayText();
 	}
 
 	private void DisplayText()
 	{
-		text.text = $"Money: {controller.Money}";
+		text.text = $"Hp: {controller.Hp}";
 	}
 }

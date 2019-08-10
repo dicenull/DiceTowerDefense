@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EBenisasori : EnemyBase
 {
-	public override float Speed => 1f;
+	public override float Speed => 3f;
 
 	public override int Money => 5;
 

@@ -15,6 +15,7 @@ public abstract class EnemyBase : MonoBehaviour
 
 	Tilemap tilemap;
 	Slider hpSlider;
+	Tile baseTile;
 	Vector3Int direction = Vector3Int.down;
 	float moveAmount = 0f;
 
@@ -25,6 +26,8 @@ public abstract class EnemyBase : MonoBehaviour
 
 	private void Start()
 	{
+		baseTile = Resources.Load<Tile>("Images/base");
+
 		hpSlider = transform.Find("Canvas/HpBar").GetComponent<Slider>();
 		hpSlider.maxValue = hp;
 		hpSlider.value = hp;
@@ -45,9 +48,17 @@ public abstract class EnemyBase : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		if(moveAmount > 1f)
+		var currentPos = tilemap.LocalToCell(transform.position);
+
+		if(tilemap.GetTile(currentPos) == baseTile)
 		{
-			var currentPos = tilemap.LocalToCell(transform.position);
+			GameHpController.Instance.Damage();
+			Destroy(gameObject);
+			return;
+		}
+
+		if (moveAmount > 1f)
+		{
 			
 			// 進行方向一つ先のタイル座標
 			var nextPos =  currentPos + direction;

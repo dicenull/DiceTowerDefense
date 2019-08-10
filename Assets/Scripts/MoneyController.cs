@@ -11,7 +11,7 @@ public class MoneyController : MonoBehaviour
     
 	private MoneyController()
 	{
-
+		MoneyChanged?.Invoke(this, EventArgs.Empty);
 	}
 
 	public bool SettableTower(TowerBase tower)
