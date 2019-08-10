@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class LaserTower : TowerBase
 {
-	public override float Range => 3f;
+	public override float Range => 1.5f;
 
 	public override float Power => 5f;
 
