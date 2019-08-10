@@ -7,7 +7,7 @@ public class MoneyController : MonoBehaviour
 {
 	public static MoneyController Instance { get; } = new MoneyController();
 
-	public int Money { get; private set; } = 200;
+	public int Money { get; private set; } = 100;
     
 	private MoneyController()
 	{
@@ -19,7 +19,11 @@ public class MoneyController : MonoBehaviour
 		return tower.Cost <= Money;
 	}
 
-	public void UseMoney(int money)
+	/// <summary>
+	/// お金を払う
+	/// </summary>
+	/// <param name="money">払う金額</param>
+	public void Pay(int money)
 	{
 		if(Money < money)
 		{
@@ -27,6 +31,16 @@ public class MoneyController : MonoBehaviour
 		}
 
 		Money -= money;
+		MoneyChanged?.Invoke(this, EventArgs.Empty);
+	}
+
+	/// <summary>
+	/// お金を受け取る
+	/// </summary>
+	/// <param name="money">受け取る金額</param>
+	public void Recieve(int money)
+	{
+		Money += money;
 		MoneyChanged?.Invoke(this, EventArgs.Empty);
 	}
 

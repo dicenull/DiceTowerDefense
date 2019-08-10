@@ -8,6 +8,8 @@ public abstract class EnemyBase : MonoBehaviour
 {
 	public abstract float Speed { get; }
 
+	public abstract int Money { get; }
+
 	protected abstract float hp { get; set; }
 	public float Hp { get => hp; }
 
@@ -35,6 +37,7 @@ public abstract class EnemyBase : MonoBehaviour
 
 		if (hp <= 0)
 		{
+			MoneyController.Instance.Recieve(Money);
 			Destroy(gameObject);
 		}
 	}

@@ -40,7 +40,7 @@ public class TowerSetter : MonoBehaviour
 			// タワーを設置
 			var anchoredPos = fieldPos + new Vector3(0.5f, 0.5f);
 			Instantiate(TowerObj, anchoredPos, Quaternion.identity, transform);
-			moneyController.UseMoney(tower.Cost);
+			moneyController.Pay(tower.Cost);
 		}
     }
 }
