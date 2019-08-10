@@ -19,20 +19,28 @@ public class TowerSetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0))
 		{
 			var mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 			var fieldPos = fieldTile.WorldToCell(mousePoint);
 
-			if(fieldTile.HasTile(fieldPos))
+			if (!fieldTile.HasTile(fieldPos))
 			{
-				var anchoredPos = fieldPos + new Vector3(0.5f, 0.5f);
-
-				var tower = 
-					Instantiate(TowerObj, anchoredPos, Quaternion.identity, transform);
-
+				return;
 			}
+
+			var moneyController = MoneyController.Instance;
+			var tower = TowerObj.GetComponent<TowerBase>();
+			if(!moneyController.SettableTower(tower))
+			{
+				return;
+			}
+
+			// タワーを設置
+			var anchoredPos = fieldPos + new Vector3(0.5f, 0.5f);
+			Instantiate(TowerObj, anchoredPos, Quaternion.identity, transform);
+			moneyController.UseMoney(tower.Cost);
 		}
     }
 }

@@ -8,6 +8,8 @@ public abstract class TowerBase : MonoBehaviour
 	public abstract float Power { get; }
 	public abstract float Interval { get; }
 
+	public abstract int Cost { get; }
+
 	protected Timer timer;
 	protected Transform enemies;
 	protected Transform rangeCircle;

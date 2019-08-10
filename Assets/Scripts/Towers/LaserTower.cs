@@ -11,4 +11,6 @@ public class LaserTower : TowerBase
 
 	public override float Interval => 1.5f;
 
+	public override int Cost => 30;
+
 }
