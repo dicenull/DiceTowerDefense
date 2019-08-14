@@ -3,28 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoneyDisplay : MonoBehaviour
+public class MoneyDisplay : DisplayBase<MoneyController>
 {
-	private MoneyController controller;
-	private Text text;
-
-	// Start is called before the first frame update
-	void Start()
+	protected override void DisplayText()
 	{
-		controller = MoneyController.Instance;
-		text = GetComponent<Text>();
-
-		controller.MoneyChanged += Controller_MoneyChanged;
-		DisplayText();
-	}
-
-	private void Controller_MoneyChanged(object sender, System.EventArgs e)
-	{
-		DisplayText();
-	}
-
-	private void DisplayText()
-	{
-		text.text = $"Money: {controller.Money}";
+		text.text = $"Money: {controller.Data}";
 	}
 }

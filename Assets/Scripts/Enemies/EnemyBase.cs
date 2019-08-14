@@ -16,12 +16,16 @@ public abstract class EnemyBase : MonoBehaviour
 	Tilemap tilemap;
 	Slider hpSlider;
 	Tile baseTile;
+	MoneyController moneyCon;
+	GameHpController hpCon;
 	Vector3Int direction = Vector3Int.down;
 	float moveAmount = 0f;
 
 	private void Awake()
 	{
 		tilemap = transform.parent.parent.GetComponent<Tilemap>();
+		moneyCon = Singleton.GetInstance<MoneyController>();
+		hpCon = Singleton.GetInstance<GameHpController>();
 	}
 
 	private void Start()
@@ -40,7 +44,7 @@ public abstract class EnemyBase : MonoBehaviour
 
 		if (hp <= 0)
 		{
-			MoneyController.Instance.Recieve(Money);
+			moneyCon.Recieve(Money);
 			Destroy(gameObject);
 		}
 	}
@@ -52,7 +56,7 @@ public abstract class EnemyBase : MonoBehaviour
 
 		if(tilemap.GetTile(currentPos) == baseTile)
 		{
-			GameHpController.Instance.Damage();
+			hpCon.Damage();
 			Destroy(gameObject);
 			return;
 		}

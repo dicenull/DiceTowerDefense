@@ -30,7 +30,7 @@ public class TowerSetter : MonoBehaviour
 				return;
 			}
 
-			var moneyController = MoneyController.Instance;
+			var moneyController = Singleton.GetInstance<MoneyController>();
 			var tower = TowerObj.GetComponent<TowerBase>();
 			if(!moneyController.SettableTower(tower))
 			{
