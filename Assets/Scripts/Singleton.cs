@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Singleton : MonoBehaviour
+public abstract class Singleton
 {
 	private static Dictionary<Type, Singleton> instances
 		= new Dictionary<Type, Singleton>();
@@ -23,7 +23,8 @@ public abstract class Singleton : MonoBehaviour
 	{
 		if(!instances.ContainsKey(typeof(T)))
 		{
-			instances[typeof(T)] = GameObject.FindWithTag("Singleton").AddComponent<T>();
+			instances[typeof(T)]
+				= Activator.CreateInstance(typeof(T), true) as Singleton;
 		}
 
 		return (T)instances[typeof(T)];

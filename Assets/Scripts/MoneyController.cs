@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class MoneyController : DataControllerBase
 {
+	private readonly int initMoney = 150;
+
 	protected MoneyController()
 	{
-		Data = 150;
+		Data = initMoney;
 	}
 
 	public bool SettableTower(TowerBase tower)
@@ -28,5 +30,10 @@ public class MoneyController : DataControllerBase
 	public void Recieve(int money)
 	{
 		Data += money;
+	}
+
+	public void Reset()
+	{
+		Data = initMoney;
 	}
 }
