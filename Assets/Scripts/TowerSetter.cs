@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -11,12 +12,14 @@ public class TowerSetter : MonoBehaviour
 	private Tilemap fieldTile;
 
 	private Transform preview;
+	private SpriteRenderer previewRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
 		fieldTile = GetComponent<Tilemap>();
 		preview = transform.Find("TowerPreview");
+		previewRenderer = preview.GetComponent<SpriteRenderer>();
     }
 	
     // Update is called once per frame
@@ -41,16 +44,24 @@ public class TowerSetter : MonoBehaviour
 				return;
 			}
 
-			var moneyController = Singleton.GetInstance<MoneyController>();
-			var tower = TowerObj.GetComponent<TowerBase>();
-			if(!moneyController.SettableTower(tower))
-			{
-				return;
-			}
-
-			// タワーを設置
-			Instantiate(TowerObj, anchoredPos, Quaternion.identity, transform);
-			moneyController.Pay(tower.Cost);
+			buildTower(anchoredPos);
 		}
     }
+
+	private void buildTower(Vector3 pos)
+	{
+		var moneyController = Singleton.GetInstance<MoneyController>();
+		var towerType = Type.GetType(previewRenderer.sprite.name + "Tower");
+
+		var tower = TowerObj.AddComponent(towerType) as TowerBase;
+		if (!moneyController.SettableTower(tower))
+		{
+			return;
+		}
+
+		// タワーを設置
+		TowerObj.GetComponent<SpriteRenderer>().sprite = previewRenderer.sprite;
+		Instantiate(TowerObj, pos, Quaternion.identity, transform);
+		moneyController.Pay(tower.Cost);
+	}
 }

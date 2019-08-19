@@ -10,6 +10,8 @@ public abstract class TowerBase : MonoBehaviour
 
 	public abstract int Cost { get; }
 
+	protected abstract void attack();
+
 	protected Timer timer;
 	protected Transform enemies;
 	protected Transform rangeCircle;
@@ -49,24 +51,4 @@ public abstract class TowerBase : MonoBehaviour
 		canAttack = true;
 	}
 
-	private void attack()
-	{
-		if (!canAttack)
-		{
-			return;
-		}
-
-		foreach (Transform enemy in enemies)
-		{
-			var distance = Vector3.Distance(transform.position, enemy.position);
-
-			if (distance <= Range)
-			{
-				enemy.GetComponent<EnemyBase>().DamageFrom(this);
-				canAttack = false;
-				timer.ReStart();
-				break;
-			}
-		}
-	}
 }
