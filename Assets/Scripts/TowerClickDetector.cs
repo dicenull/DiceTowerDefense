@@ -14,6 +14,6 @@ public class TowerClickDetector : MonoBehaviour, IPointerClickHandler
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		selecter.NotifyClick(this);
+		selecter.NotifyClick(transform);
 	}
 }

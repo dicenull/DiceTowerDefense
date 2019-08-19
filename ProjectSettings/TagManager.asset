@@ -8,6 +8,8 @@ TagManager:
   - Singleton
   - GameData
   - Pause
+  - HpBar
+  - TowerPreview
   layers:
   - Default
   - TransparentFX
