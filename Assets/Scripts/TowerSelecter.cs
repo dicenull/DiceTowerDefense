@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class TowerSelecter : MonoBehaviour
 {
-	Sprite preview;
+	SpriteRenderer preview;
 
 	private void Awake()
 	{
-		preview = GameObject.FindWithTag("TowerPreview").GetComponent<Sprite>();
+		preview = GameObject.FindWithTag("TowerPreview").GetComponent<SpriteRenderer>();
 	}
 
 	public void NotifyClick(Transform sender)
@@ -29,6 +29,6 @@ public class TowerSelecter : MonoBehaviour
 			}
 		}
 
-		Debug.Log(sender.name);
+		preview.sprite = Resources.Load<Sprite>($"Images/Towers/{sender.name}");
 	}
 }

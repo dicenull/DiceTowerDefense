@@ -10,22 +10,33 @@ public class TowerSetter : MonoBehaviour
 
 	private Tilemap fieldTile;
 
+	private Transform preview;
+
     // Start is called before the first frame update
     void Start()
     {
 		fieldTile = GetComponent<Tilemap>();
+		preview = transform.Find("TowerPreview");
     }
 	
     // Update is called once per frame
     void Update()
     {
+		var mouseInWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		var mouseInField = fieldTile.WorldToCell(mouseInWorld);
+		var anchoredPos = mouseInField + new Vector3(0.5f, 0.5f);
+
+		bool settable = fieldTile.HasTile(mouseInField);
+
+		preview.gameObject.SetActive(settable);
+		if (settable)
+		{
+			preview.position = anchoredPos;
+		}
+		
 		if (Input.GetMouseButtonDown(0))
 		{
-			var mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-			var fieldPos = fieldTile.WorldToCell(mousePoint);
-
-			if (!fieldTile.HasTile(fieldPos))
+			if (!settable)
 			{
 				return;
 			}
@@ -38,7 +49,6 @@ public class TowerSetter : MonoBehaviour
 			}
 
 			// タワーを設置
-			var anchoredPos = fieldPos + new Vector3(0.5f, 0.5f);
 			Instantiate(TowerObj, anchoredPos, Quaternion.identity, transform);
 			moneyController.Pay(tower.Cost);
 		}
