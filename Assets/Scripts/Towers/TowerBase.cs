@@ -31,6 +31,8 @@ public abstract class TowerBase : MonoBehaviour
 	{
 		sumCost += UpgradeCost;
 		Level++;
+
+		rangeCircle.localScale = new Vector3(Range, Range) * 2;
 	}
 
 	private void Awake()
