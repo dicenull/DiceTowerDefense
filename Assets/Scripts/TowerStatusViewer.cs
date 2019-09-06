@@ -11,6 +11,8 @@ public class TowerStatusViewer : MonoBehaviour
 	private Image preview;
 	private Text level;
 
+	private TowerBase tower;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,14 +37,18 @@ public class TowerStatusViewer : MonoBehaviour
 			return;
 		}
 
-		var towerObj = hit.collider.gameObject;
-		var tower = towerObj.GetComponent<TowerBase>();
+		tower = hit.collider.gameObject.GetComponent<TowerBase>();
+		updateStatus();
+	}
+
+	public void updateStatus()
+	{
 		for (var i = 0; i < names.Length; i++)
 		{
 			// ステータス名から各ステータスを取得
 			var status = typeof(TowerBase).GetProperty(names[i]).GetValue(tower);
 
-			if(i < 3)
+			if (i < 3)
 			{
 				statuses[i].text = $"{names[i]}: " + string.Format("{0:f}", status);
 			}
@@ -54,6 +60,28 @@ public class TowerStatusViewer : MonoBehaviour
 
 
 		level.text = $"Lv. {tower.Level}";
-		preview.sprite = towerObj.GetComponent<SpriteRenderer>().sprite;
+		preview.sprite = tower.gameObject.GetComponent<SpriteRenderer>().sprite;
+	}
+
+	public void Upgrade()
+	{
+		var moneyCon = Singleton.GetInstance<MoneyController>();
+		if (tower == null || tower.UpgradeCost > moneyCon.Data)
+		{
+			return;
+		}
+
+		tower.LevelUp();
+		moneyCon.Pay(tower.UpgradeCost);
+
+		updateStatus();
+	}
+
+	public void Refund()
+	{
+		var moneyCon = Singleton.GetInstance<MoneyController>();
+
+		moneyCon.Recieve(tower.Refund);
+		Destroy(tower.gameObject);
 	}
 }
