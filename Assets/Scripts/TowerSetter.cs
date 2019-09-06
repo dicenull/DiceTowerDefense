@@ -33,8 +33,10 @@ public class TowerSetter : MonoBehaviour
 		var mouseInField = fieldTile.WorldToCell(mouseInWorld);
 		var anchoredPos = mouseInField + new Vector3(0.5f, 0.5f);
 
-		bool settable = fieldTile.GetTile(mouseInField) == TileTypes.Wall;
-		Debug.Log(TileTypes.Wall);
+		var hit = Physics2D.Raycast(mouseInWorld, Vector3.forward);
+
+		// なにも設置されていない壁であればOK
+		bool settable = fieldTile.GetTile(mouseInField) == TileTypes.Wall && hit.collider == null;
 
 		preview.gameObject.SetActive(settable);
 		if (settable)
