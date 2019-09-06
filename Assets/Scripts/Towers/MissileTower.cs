@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MissileTower : TowerBase
 {
-	public override float Range => 5f;
+	protected override float basicRange => 5f;
 
-	public override float Power => 10f;
+	protected override float basicPower => 10f;
 
-	public override float Interval => 7f;
+	protected override float basicInterval => 7f;
 
 	public override int Cost => 60;
 

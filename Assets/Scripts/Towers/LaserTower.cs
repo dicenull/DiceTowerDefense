@@ -5,11 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class LaserTower : TowerBase
 {
-	public override float Range => 1f;
+	protected override float basicRange => 1f;
 
-	public override float Power => 6f;
+	protected override float basicPower => 6f;
 
-	public override float Interval => 5f;
+	protected override float basicInterval => 5f;
 
 	public override int Cost => 50;
 
