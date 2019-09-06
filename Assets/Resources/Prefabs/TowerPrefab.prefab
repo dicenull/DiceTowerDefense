@@ -90,14 +90,6 @@ GameObject:
   - component: {fileID: 6947137840210503395}
   - component: {fileID: 1739241495087403182}
   - component: {fileID: 7533235445236709010}
-  - component: {fileID: 2724810822435325387}
-  - component: {fileID: -4405912803807092658}
-  - component: {fileID: 2614983889626707521}
-  - component: {fileID: 8837893452119598863}
-  - component: {fileID: 3354307534441314420}
-  - component: {fileID: 4023202602477619784}
-  - component: {fileID: 2734118380612765124}
-  - component: {fileID: -4144970898829461521}
   m_Layer: 0
   m_Name: TowerPrefab
   m_TagString: Untagged
@@ -157,7 +149,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 58ed904225e835d48a7405e3f1b0730a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 251403c970c8f6343a98ddc8797f3c64, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -194,99 +186,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2724810822435325387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3065305574070707744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e791f64a603be546b7cb3c6f76c6ecc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-4405912803807092658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3065305574070707744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b22edbc969641ac4494221f87204f3e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2614983889626707521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3065305574070707744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b22edbc969641ac4494221f87204f3e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8837893452119598863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3065305574070707744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e45a4afeefb3744897db674ef420842, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3354307534441314420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3065305574070707744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e45a4afeefb3744897db674ef420842, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4023202602477619784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3065305574070707744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e45a4afeefb3744897db674ef420842, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2734118380612765124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3065305574070707744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e791f64a603be546b7cb3c6f76c6ecc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-4144970898829461521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3065305574070707744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b22edbc969641ac4494221f87204f3e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

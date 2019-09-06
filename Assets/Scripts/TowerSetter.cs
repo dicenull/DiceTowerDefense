@@ -9,6 +9,8 @@ public class TowerSetter : MonoBehaviour
 	[SerializeField]
 	private GameObject TowerObj;
 
+	private GameObject nextTowerObj;
+
 	private Tilemap fieldTile;
 
 	private Transform preview;
@@ -20,6 +22,8 @@ public class TowerSetter : MonoBehaviour
 		fieldTile = GetComponent<Tilemap>();
 		preview = transform.Find("TowerPreview");
 		previewRenderer = preview.GetComponent<SpriteRenderer>();
+
+		buildNextTower();
     }
 	
     // Update is called once per frame
@@ -53,15 +57,28 @@ public class TowerSetter : MonoBehaviour
 		var moneyController = Singleton.GetInstance<MoneyController>();
 		var towerType = Type.GetType(previewRenderer.sprite.name + "Tower");
 
-		var tower = TowerObj.AddComponent(towerType) as TowerBase;
+		// あらかじめ生成しておいたタワーに機能を付与
+		var tower = nextTowerObj.AddComponent(towerType) as TowerBase;		
 		if (!moneyController.SettableTower(tower))
 		{
+			Destroy(tower);
 			return;
 		}
 
 		// タワーを設置
-		TowerObj.GetComponent<SpriteRenderer>().sprite = previewRenderer.sprite;
-		Instantiate(TowerObj, pos, Quaternion.identity, transform);
+		nextTowerObj.GetComponent<SpriteRenderer>().sprite = previewRenderer.sprite;
+		nextTowerObj.transform.position = pos;
+		nextTowerObj.SetActive(true);
+
+		// 次のタワーを生成
+		buildNextTower();
+		
 		moneyController.Pay(tower.Cost);
+	}
+
+	void buildNextTower()
+	{
+		nextTowerObj = Instantiate(TowerObj, transform);
+		nextTowerObj.SetActive(false);
 	}
 }
