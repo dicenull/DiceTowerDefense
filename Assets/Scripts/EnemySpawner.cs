@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
 	private GameObject enemyObj;
 	private bool onWave = false;
 	private bool endSpawn = false;
+
+	[SerializeField]
+	private Slider waitSlider;
 
 	public int Wave { get; private set; } = 1;
 
@@ -44,7 +48,26 @@ public class EnemySpawner : MonoBehaviour
 
 	IEnumerator waitingAndNext()
 	{
-		yield return new WaitForSeconds(15);
+		var time = 15;
+		var endTime = Time.time + time;
+
+		waitSlider.maxValue = time;
+		waitSlider.gameObject.SetActive(true);
+
+		while(true)
+		{
+			var diff = endTime - Time.time;
+
+			if (diff <= 0)
+			{
+				break;
+			}
+
+			waitSlider.value = diff;
+
+			yield return null;
+		}
+		waitSlider.gameObject.SetActive(false);
 
 		Wave++;
 		StartCoroutine(enemyWave());

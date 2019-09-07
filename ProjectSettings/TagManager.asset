@@ -12,6 +12,7 @@ TagManager:
   - TowerPreview
   - StatusBox
   - Cursor
+  - WaitSlider
   layers:
   - Default
   - TransparentFX
