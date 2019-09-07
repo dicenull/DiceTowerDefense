@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 	private GameObject enemyObj;
-	private Timer spawnTimer;
+	private bool onWave = false;
 
 	private void Awake()
 	{
@@ -14,6 +14,16 @@ public class EnemySpawner : MonoBehaviour
 
 	private void Start()
 	{
+	}
+
+	public void WaveStart()
+	{
+		if(onWave)
+		{
+			return;
+		}
+
+		onWave = true;
 		StartCoroutine(enemyWave());
 	}
 	
