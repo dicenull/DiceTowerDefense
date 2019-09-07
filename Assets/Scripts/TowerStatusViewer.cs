@@ -13,7 +13,7 @@ public class TowerStatusViewer : MonoBehaviour
 	private Button upgradeBtn, deleteBtn;
 	private GameObject cursor;
 
-	private TowerBase tower;
+	private TowerBase tower, previewTower;
 	private MoneyController moneyCon;
 
 	private bool onField = false;
@@ -106,12 +106,11 @@ public class TowerStatusViewer : MonoBehaviour
 		else
 		{
 			// 設置前のプレビュータワー
+			previewTower = tower;
 			preview.sprite = tower.gameObject.GetComponent<Image>().sprite;
 			preview.color = Color.white;
 
-			upgradeBtn.interactable = false;
-			deleteBtn.interactable = false;
-			onField = false;
+			inactiveUI();
 		}
 	}
 
@@ -134,5 +133,18 @@ public class TowerStatusViewer : MonoBehaviour
 
 		moneyCon.Recieve(tower.Refund);
 		Destroy(tower.gameObject);
+
+		tower = previewTower;
+		updateStatus();
+
+		inactiveUI();
+	}
+
+	private void inactiveUI()
+	{
+		cursor.SetActive(false);
+		upgradeBtn.interactable = false;
+		deleteBtn.interactable = false;
+		onField = false;
 	}
 }
