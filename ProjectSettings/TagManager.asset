@@ -13,6 +13,7 @@ TagManager:
   - StatusBox
   - Cursor
   - WaitSlider
+  - EnemyManager
   layers:
   - Default
   - TransparentFX

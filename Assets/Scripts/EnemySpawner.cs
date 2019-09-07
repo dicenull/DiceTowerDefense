@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
-	private GameObject enemyObj;
 	private bool onWave = false;
 	private bool endSpawn = false;
 
@@ -15,16 +14,12 @@ public class EnemySpawner : MonoBehaviour
 
 	public int Wave { get; private set; } = 1;
 
-	private void Awake()
-	{
-		enemyObj = Resources.Load<GameObject>("Prefabs/Enemy");
-	}
-
 	private void Update()
 	{
 		if (endSpawn && transform.childCount == 0)
 		{
 			onWave = false;
+			endSpawn = false;
 			StartCoroutine(waitingAndNext());
 		}
 	}
@@ -48,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
 
 	IEnumerator waitingAndNext()
 	{
-		var time = 15;
+		var time = 1;
 		var endTime = Time.time + time;
 
 		waitSlider.maxValue = time;
@@ -71,6 +66,7 @@ public class EnemySpawner : MonoBehaviour
 
 		Wave++;
 		StartCoroutine(enemyWave());
+		yield break;
 	}
 	
 	IEnumerator enemyWave()
@@ -80,7 +76,8 @@ public class EnemySpawner : MonoBehaviour
 			case 1:
 				for (var i = 0; i < 10; i++)
 				{
-					Instantiate(enemyObj, transform);
+					var enemy = Instantiate(EnemyManager.Enemies["Benisasori"], transform);
+					enemy.SetActive(true);
 
 					yield return new WaitForSeconds(2);
 				}
@@ -89,9 +86,20 @@ public class EnemySpawner : MonoBehaviour
 			case 2:
 				for(var i = 0;i < 15; i++)
 				{
-					Instantiate(enemyObj, transform);
+					var enemy = Instantiate(EnemyManager.Enemies["Benisasori"], transform);
+					enemy.SetActive(true);
 
 					yield return new WaitForSeconds(1.5f);
+				}
+				break;
+
+			case 3:
+				for(var i = 0; i < 20;i++)
+				{
+					var enemy = Instantiate(EnemyManager.Enemies["Pmite"], transform);
+					enemy.SetActive(true);
+
+					yield return new WaitForSeconds(1f);
 				}
 				break;
 
@@ -101,6 +109,7 @@ public class EnemySpawner : MonoBehaviour
 		}
 
 		endWave();
+		yield break;
 	}
 
 
