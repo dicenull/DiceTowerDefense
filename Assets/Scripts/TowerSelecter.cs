@@ -8,11 +8,14 @@ public class TowerSelecter : MonoBehaviour
 {
 	SpriteRenderer preview;
 	TowerStatusViewer statusViewer;
+	GameObject cursor;
 
 	private void Awake()
 	{
 		preview = GameObject.FindWithTag("TowerPreview").GetComponent<SpriteRenderer>();
 		statusViewer = GameObject.FindWithTag("StatusBox").GetComponent<TowerStatusViewer>();
+
+		cursor = GameObject.FindWithTag("Cursor");
 	}
 
 	public void NotifyClick(Transform sender)
@@ -33,5 +36,7 @@ public class TowerSelecter : MonoBehaviour
 
 		preview.sprite = Resources.Load<Sprite>($"Images/Towers/{sender.name}");
 		statusViewer.Tower = sender.GetComponent<TowerBase>();
+
+		cursor.SetActive(false);
 	}
 }
