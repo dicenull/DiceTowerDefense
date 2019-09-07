@@ -10,22 +10,20 @@ public class EnemySpawner : MonoBehaviour
 	private void Awake()
 	{
 		enemyObj = Resources.Load<GameObject>("Prefabs/Enemy");
-
-		spawnTimer = gameObject.AddComponent<Timer>();
-		spawnTimer.Interval = 2f;
-
-		spawnTimer.Tick += SpawnTimer_Tick;
-		spawnTimer.TimerStart();
 	}
 
-	private void SpawnTimer_Tick(object sender, System.EventArgs e)
+	private void Start()
 	{
-		Instantiate(enemyObj, transform);
+		StartCoroutine(enemyWave());
 	}
+	
+	IEnumerator enemyWave()
+	{
+		for(var i = 0;i < 10;i++)
+		{
+			Instantiate(enemyObj, transform);
 
-	// Update is called once per frame
-	void Update()
-    {
-        
-    }
+			yield return new WaitForSeconds(2);
+		}
+	}
 }
