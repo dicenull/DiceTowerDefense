@@ -89,11 +89,11 @@ public abstract class TowerBase : MonoBehaviour
 		{
 			var distance = Vector3.Distance(transform.position, enemy.position);
 
-			Debug.Log(distance);
 			if (distance <= Range)
 			{
 				var angle = Vector2Entend.GetAim(transform.position, enemy.position);
 
+				// 画像が元から90度回転しているので補正
 				transform.rotation = Quaternion.Euler(0, 0, angle - 90);
 
 				break;
