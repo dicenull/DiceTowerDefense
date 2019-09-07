@@ -11,6 +11,7 @@ public class TowerStatusViewer : MonoBehaviour
 	private Image preview;
 	private Text level;
 	private Button upgradeBtn, deleteBtn;
+	private GameObject cursor;
 
 	private TowerBase tower;
 	public TowerBase Tower
@@ -36,21 +37,29 @@ public class TowerStatusViewer : MonoBehaviour
 
 		upgradeBtn = transform.Find("UpgradeButton").GetComponent<Button>();
 		deleteBtn = transform.Find("DeleteButton").GetComponent<Button>();
+
+		cursor = GameObject.FindWithTag("Cursor");
     }
 
     // Update is called once per frame
     void Update()
     {
-		// マウス上にあるオブジェクトを取得
-		var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
-
-		if(hit.collider == null)
+		if(Input.GetMouseButton(0))
 		{
-			return;
+			// マウス上にあるオブジェクトを取得
+			var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
+
+			if (hit.collider == null)
+			{
+				return;
+			}
+
+			cursor.transform.position = hit.collider.gameObject.transform.position;
+			cursor.SetActive(true);
+			tower = hit.collider.gameObject.GetComponent<TowerBase>();
+			updateStatus();
 		}
 
-		tower = hit.collider.gameObject.GetComponent<TowerBase>();
-		updateStatus();
 	}
 
 	public void updateStatus()
