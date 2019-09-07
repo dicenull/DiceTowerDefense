@@ -39,4 +39,9 @@ public class LaserTower : TowerBase
 			timer.ReStart();
 		}
 	}
+
+	protected override void aim()
+	{
+		return; // no aim
+	}
 }

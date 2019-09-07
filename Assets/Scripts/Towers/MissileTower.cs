@@ -32,4 +32,9 @@ public class MissileTower : TowerBase
 			}
 		}
 	}
+
+	protected override void aim()
+	{
+		followingAim();
+	}
 }

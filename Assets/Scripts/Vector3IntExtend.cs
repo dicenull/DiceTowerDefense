@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class Vector3IntExtend
 {
+	
     public static Vector3Int RotatedRight(this Vector3Int vector)
 	{
 		return Vector3Int.RoundToInt(Quaternion.Euler(0, 0, 90) * vector);

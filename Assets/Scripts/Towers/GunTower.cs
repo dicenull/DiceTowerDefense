@@ -32,4 +32,9 @@ public class GunTower : TowerBase
 			}
 		}
 	}
+
+	protected override void aim()
+	{
+		followingAim();
+	}
 }

@@ -20,6 +20,7 @@ public abstract class TowerBase : MonoBehaviour
 	public abstract int Cost { get; }
 
 	protected abstract void attack();
+	protected abstract void aim();
 
 	protected Timer timer;
 	protected Transform enemies;
@@ -59,7 +60,12 @@ public abstract class TowerBase : MonoBehaviour
 
 	private void Update()
 	{
-		attack();
+		aim();
+
+		if(canAttack)
+		{
+			attack();
+		}
 	}
 
 	private void OnMouseEnter()
@@ -77,4 +83,21 @@ public abstract class TowerBase : MonoBehaviour
 		canAttack = true;
 	}
 
+	protected void followingAim()
+	{
+		foreach (Transform enemy in enemies)
+		{
+			var distance = Vector3.Distance(transform.position, enemy.position);
+
+			Debug.Log(distance);
+			if (distance <= Range)
+			{
+				var angle = Vector2Entend.GetAim(transform.position, enemy.position);
+
+				transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+
+				break;
+			}
+		}
+	}
 }
