@@ -14,6 +14,10 @@ public class TowerStatusViewer : MonoBehaviour
 	private GameObject cursor;
 
 	private TowerBase tower;
+	private MoneyController moneyCon;
+
+	private bool onField = false;
+
 	public TowerBase Tower
 	{
 		set
@@ -39,7 +43,9 @@ public class TowerStatusViewer : MonoBehaviour
 		deleteBtn = transform.Find("DeleteButton").GetComponent<Button>();
 
 		cursor = GameObject.FindWithTag("Cursor");
-    }
+
+		moneyCon = Singleton.GetInstance<MoneyController>();
+	}
 
     // Update is called once per frame
     void Update()
@@ -57,9 +63,14 @@ public class TowerStatusViewer : MonoBehaviour
 			cursor.transform.position = hit.collider.gameObject.transform.position;
 			cursor.SetActive(true);
 			tower = hit.collider.gameObject.GetComponent<TowerBase>();
+
 			updateStatus();
 		}
 
+		if(onField)
+		{
+			upgradeBtn.interactable = (tower.UpgradeCost <= moneyCon.Data);
+		}
 	}
 
 	public void updateStatus()
@@ -89,8 +100,8 @@ public class TowerStatusViewer : MonoBehaviour
 			preview.sprite = renderer.sprite;
 			preview.color = renderer.color;
 
-			upgradeBtn.interactable = true;
 			deleteBtn.interactable = true;
+			onField = true;
 		}
 		else
 		{
@@ -100,12 +111,12 @@ public class TowerStatusViewer : MonoBehaviour
 
 			upgradeBtn.interactable = false;
 			deleteBtn.interactable = false;
+			onField = false;
 		}
 	}
 
 	public void Upgrade()
 	{
-		var moneyCon = Singleton.GetInstance<MoneyController>();
 		if (tower == null || tower.UpgradeCost > moneyCon.Data)
 		{
 			return;
