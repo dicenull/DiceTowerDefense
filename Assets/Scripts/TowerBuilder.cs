@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TowerSetter : MonoBehaviour
+public class TowerBuilder : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject TowerObj;

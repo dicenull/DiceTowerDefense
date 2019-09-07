@@ -85,7 +85,9 @@ public class TowerStatusViewer : MonoBehaviour
 		if(tower.gameObject.GetComponent<SpriteRenderer>() != null)
 		{
 			// フィールド上のタワー
-			preview.sprite = tower.gameObject.GetComponent<SpriteRenderer>().sprite;
+			var renderer = tower.gameObject.GetComponent<SpriteRenderer>();
+			preview.sprite = renderer.sprite;
+			preview.color = renderer.color;
 
 			upgradeBtn.interactable = true;
 			deleteBtn.interactable = true;
@@ -94,6 +96,7 @@ public class TowerStatusViewer : MonoBehaviour
 		{
 			// 設置前のプレビュータワー
 			preview.sprite = tower.gameObject.GetComponent<Image>().sprite;
+			preview.color = Color.white;
 
 			upgradeBtn.interactable = false;
 			deleteBtn.interactable = false;

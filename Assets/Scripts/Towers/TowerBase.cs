@@ -33,6 +33,8 @@ public abstract class TowerBase : MonoBehaviour
 		Level++;
 
 		rangeCircle.localScale = new Vector3(Range, Range) * 2;
+
+		GetComponent<SpriteRenderer>().color = LevelColor.ColorOf(Level);
 	}
 
 	private void Awake()
