@@ -6,12 +6,21 @@ using UnityEngine.UI;
 public class TowerStatusViewer : MonoBehaviour
 {
 	private List<Text> statuses;
-	private string[] names = new[] { "Power", "Range", "Interval", "UpgradeCost", "Refund" };
+	private string[] names = new[] { "Power", "Range", "Interval", "Cost", "UpgradeCost", "Refund" };
 
 	private Image preview;
 	private Text level;
+	private Button upgradeBtn, deleteBtn;
 
 	private TowerBase tower;
+	public TowerBase Tower
+	{
+		set
+		{
+			tower = value;
+			updateStatus();
+		}
+	}
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +33,9 @@ public class TowerStatusViewer : MonoBehaviour
 
 		preview = transform.Find("Preview").GetComponent<Image>();
 		level = transform.Find("Level").GetComponent<Text>();
+
+		upgradeBtn = transform.Find("UpgradeButton").GetComponent<Button>();
+		deleteBtn = transform.Find("DeleteButton").GetComponent<Button>();
     }
 
     // Update is called once per frame
@@ -48,7 +60,7 @@ public class TowerStatusViewer : MonoBehaviour
 			// ステータス名から各ステータスを取得
 			var status = typeof(TowerBase).GetProperty(names[i]).GetValue(tower);
 
-			if (i < 3)
+			if (i < 4)
 			{
 				statuses[i].text = $"{names[i]}: " + string.Format("{0:f}", status);
 			}
@@ -60,7 +72,23 @@ public class TowerStatusViewer : MonoBehaviour
 
 
 		level.text = $"Lv. {tower.Level}";
-		preview.sprite = tower.gameObject.GetComponent<SpriteRenderer>().sprite;
+
+		if(tower.gameObject.GetComponent<SpriteRenderer>() != null)
+		{
+			// フィールド上のタワー
+			preview.sprite = tower.gameObject.GetComponent<SpriteRenderer>().sprite;
+
+			upgradeBtn.interactable = true;
+			deleteBtn.interactable = true;
+		}
+		else
+		{
+			// 設置前のプレビュータワー
+			preview.sprite = tower.gameObject.GetComponent<Image>().sprite;
+
+			upgradeBtn.interactable = false;
+			deleteBtn.interactable = false;
+		}
 	}
 
 	public void Upgrade()
@@ -71,8 +99,8 @@ public class TowerStatusViewer : MonoBehaviour
 			return;
 		}
 
-		tower.LevelUp();
 		moneyCon.Pay(tower.UpgradeCost);
+		tower.LevelUp();
 
 		updateStatus();
 	}

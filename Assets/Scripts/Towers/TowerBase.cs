@@ -44,11 +44,15 @@ public abstract class TowerBase : MonoBehaviour
 		timer.TimerStart();
 
 		enemies = GameObject.FindWithTag("SpawnPoint").transform;
-		rangeCircle = transform.Find("RangeCircle");
-		// 範囲を直径で設定
-		rangeCircle.localScale = new Vector3(Range, Range) * 2;
 
 		sumCost += Cost;
+		rangeCircle = transform.Find("RangeCircle");
+
+		if(rangeCircle != null)
+		{
+			// 範囲を直径で設定
+			rangeCircle.localScale = new Vector3(Range, Range) * 2;
+		}
 	}
 
 	private void Update()
