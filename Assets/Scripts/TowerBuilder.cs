@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 public class TowerBuilder : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject TowerObj;
+	private GameObject TowerObj = null;
 
 	private GameObject nextTowerObj;
 

@@ -8,7 +8,7 @@ public class GameSetter : MonoBehaviour
 	MoneyController moneyController;
 
 	[SerializeField]
-	GameObject pauseObj;
+	GameObject pauseObj = null;
 
     // Start is called before the first frame update
     void Start()

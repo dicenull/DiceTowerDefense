@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
 	private bool endSpawn = false;
 
 	[SerializeField]
-	private Slider waitSlider;
+	private Slider waitSlider = null;
 
 	public int Wave { get; private set; } = 1;
 
