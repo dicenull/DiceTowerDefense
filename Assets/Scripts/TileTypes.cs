@@ -11,7 +11,7 @@ public class TileTypes : MonoBehaviour
 
 	private void Awake()
 	{
-		Wall = Resources.Load<TileBase>("Images/wall");
-		Base = Resources.Load<TileBase>("Images/base");
+		Wall = Resources.Load<TileBase>("Tiles/Wall");
+		Base = Resources.Load<TileBase>("Tiles/Base");
 	}
 }
