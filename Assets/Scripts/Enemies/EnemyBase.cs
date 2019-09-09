@@ -15,7 +15,7 @@ public abstract class EnemyBase : MonoBehaviour
 
 	Tilemap tilemap;
 	Slider hpSlider;
-	Tile baseTile;
+	TileBase baseTile;
 	MoneyController moneyCon;
 	GameHpController hpCon;
 	Vector3Int direction = Vector3Int.down;
@@ -30,7 +30,7 @@ public abstract class EnemyBase : MonoBehaviour
 
 	private void Start()
 	{
-		baseTile = Resources.Load<Tile>("Images/base");
+		baseTile = TileTypes.Base;
 
 		hpSlider = transform.Find("Canvas/HpBar").GetComponent<Slider>();
 		hpSlider.maxValue = hp;
