@@ -76,7 +76,7 @@ public class EnemySpawner : MonoBehaviour
 			case 1:
 				for (var i = 0; i < 10; i++)
 				{
-					var enemy = Instantiate(EnemyManager.Enemies["Benisasori"], transform);
+					var enemy = Instantiate(EnemyPrefabManager.Enemies["Benisasori"], transform);
 					enemy.SetActive(true);
 
 					yield return new WaitForSeconds(2);
@@ -86,7 +86,7 @@ public class EnemySpawner : MonoBehaviour
 			case 2:
 				for(var i = 0;i < 15; i++)
 				{
-					var enemy = Instantiate(EnemyManager.Enemies["Benisasori"], transform);
+					var enemy = Instantiate(EnemyPrefabManager.Enemies["Benisasori"], transform);
 					enemy.SetActive(true);
 
 					yield return new WaitForSeconds(1.5f);
@@ -96,7 +96,7 @@ public class EnemySpawner : MonoBehaviour
 			case 3:
 				for(var i = 0; i < 20;i++)
 				{
-					var enemy = Instantiate(EnemyManager.Enemies["Pmite"], transform);
+					var enemy = Instantiate(EnemyPrefabManager.Enemies["Pmite"], transform);
 					enemy.SetActive(true);
 
 					yield return new WaitForSeconds(1f);

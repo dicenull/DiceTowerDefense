@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyPrefabManager : MonoBehaviour
 {
 	public static Dictionary<string, GameObject> Enemies { get; } = new Dictionary<string, GameObject>();
 
