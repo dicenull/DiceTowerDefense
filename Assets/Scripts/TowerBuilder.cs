@@ -14,14 +14,14 @@ public class TowerBuilder : MonoBehaviour
 	private Tilemap fieldTile;
 
 	private Transform preview;
-	private SpriteRenderer previewRenderer;
+	private TowerSelector selector;
 
     // Start is called before the first frame update
     void Start()
     {
 		fieldTile = GetComponent<Tilemap>();
 		preview = transform.Find("TowerPreview");
-		previewRenderer = preview.GetComponent<SpriteRenderer>();
+		selector = GameObject.FindWithTag("TowerSelector").GetComponent<TowerSelector>();
 
 		buildNextTower();
     }
@@ -58,10 +58,9 @@ public class TowerBuilder : MonoBehaviour
 	private void buildTower(Vector3 pos)
 	{
 		var moneyController = Singleton.GetInstance<MoneyController>();
-		var towerType = Type.GetType(previewRenderer.sprite.name + "Tower");
 
 		// あらかじめ生成しておいたタワーに機能を付与
-		var tower = nextTowerObj.AddComponent(towerType) as TowerBase;		
+		var tower = nextTowerObj.AddComponent(selector.CurrentTower.GetType()) as TowerBase;
 		if (!moneyController.SettableTower(tower))
 		{
 			Destroy(tower);
@@ -69,7 +68,9 @@ public class TowerBuilder : MonoBehaviour
 		}
 
 		// タワーを設置
-		nextTowerObj.GetComponent<SpriteRenderer>().sprite = previewRenderer.sprite;
+		nextTowerObj.GetComponent<SpriteRenderer>().sprite 
+			= preview.GetComponent<SpriteRenderer>().sprite;
+
 		nextTowerObj.transform.position = pos;
 		nextTowerObj.SetActive(true);
 

@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TowerSelecter : MonoBehaviour
+public class TowerSelector : MonoBehaviour
 {
 	SpriteRenderer preview;
-	TowerStatusViewer statusViewer;
 	GameObject cursor;
+
+	public TowerBase CurrentTower { get; private set; } = null;
 
 	private void Awake()
 	{
 		preview = GameObject.FindWithTag("TowerPreview").GetComponent<SpriteRenderer>();
-		statusViewer = GameObject.FindWithTag("StatusBox").GetComponent<TowerStatusViewer>();
-
+		
 		cursor = GameObject.FindWithTag("Cursor");
 	}
 
@@ -35,7 +35,7 @@ public class TowerSelecter : MonoBehaviour
 		}
 
 		preview.sprite = Resources.Load<Sprite>($"Images/Towers/{sender.name}");
-		statusViewer.Tower = sender.GetComponent<TowerBase>();
+		CurrentTower = sender.GetComponent<TowerBase>();
 
 		cursor.SetActive(false);
 	}

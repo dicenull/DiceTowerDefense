@@ -18,15 +18,6 @@ public class TowerStatusViewer : MonoBehaviour
 
 	private bool onField = false;
 
-	public TowerBase Tower
-	{
-		set
-		{
-			tower = value;
-			updateStatus();
-		}
-	}
-
     // Start is called before the first frame update
     void Start()
     {

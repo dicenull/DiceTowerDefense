@@ -14,6 +14,7 @@ TagManager:
   - Cursor
   - WaitSlider
   - EnemyManager
+  - TowerSelector
   layers:
   - Default
   - TransparentFX
