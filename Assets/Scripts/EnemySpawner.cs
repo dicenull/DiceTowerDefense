@@ -6,19 +6,41 @@ using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
-	private bool onWave = false;
 	private bool endSpawn = false;
 
 	[SerializeField]
 	private Slider waitSlider = null;
 
-	public int Wave { get; private set; } = 1;
+	private WaveManager manager;
+	
+	private void Start()
+	{
+		manager = gameObject.AddComponent<WaveManager>();
+
+		manager.OnEndWave += Manager_OnEndWave;
+		manager.OnClear += Manager_OnClear;
+	}
+
+	private void Manager_OnClear(object sender, System.EventArgs e)
+	{
+		// Time.timeScale = 0;
+		Debug.Log("CLEAR");
+	}
+
+	private void Manager_OnEndWave(object sender, System.EventArgs e)
+	{
+		endSpawn = true;
+	}
 
 	private void Update()
 	{
 		if (endSpawn && transform.childCount == 0)
 		{
-			onWave = false;
+			if(manager.IsEnd)
+			{
+				return;
+			}
+
 			endSpawn = false;
 			StartCoroutine(waitingAndNext());
 		}
@@ -26,19 +48,7 @@ public class EnemySpawner : MonoBehaviour
 
 	public void WaveStart()
 	{
-		if(onWave)
-		{
-			return;
-		}
-
-		onWave = true;
-		endSpawn = false;
-		StartCoroutine(enemyWave());
-	}
-
-	private void endWave()
-	{
-		endSpawn = true;
+		StartCoroutine(manager.Wave());
 	}
 
 	IEnumerator waitingAndNext()
@@ -64,53 +74,7 @@ public class EnemySpawner : MonoBehaviour
 		}
 		waitSlider.gameObject.SetActive(false);
 
-		Wave++;
-		StartCoroutine(enemyWave());
+		StartCoroutine(manager.Wave());
 		yield break;
 	}
-	
-	IEnumerator enemyWave()
-	{
-		switch (Wave)
-		{
-			case 1:
-				for (var i = 0; i < 10; i++)
-				{
-					var enemy = Instantiate(EnemyPrefabManager.Enemies["Benisasori"], transform);
-					enemy.SetActive(true);
-
-					yield return new WaitForSeconds(2);
-				}
-				break;
-
-			case 2:
-				for(var i = 0;i < 15; i++)
-				{
-					var enemy = Instantiate(EnemyPrefabManager.Enemies["Benisasori"], transform);
-					enemy.SetActive(true);
-
-					yield return new WaitForSeconds(1.5f);
-				}
-				break;
-
-			case 3:
-				for(var i = 0; i < 20;i++)
-				{
-					var enemy = Instantiate(EnemyPrefabManager.Enemies["Pmite"], transform);
-					enemy.SetActive(true);
-
-					yield return new WaitForSeconds(1f);
-				}
-				break;
-
-			default:
-				// CLEAR
-				break;
-		}
-
-		endWave();
-		yield break;
-	}
-
-
 }
