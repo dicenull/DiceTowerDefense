@@ -24,7 +24,6 @@ public class EnemySpawner : MonoBehaviour
 	private void Manager_OnClear(object sender, System.EventArgs e)
 	{
 		// Time.timeScale = 0;
-		Debug.Log("CLEAR");
 	}
 
 	private void Manager_OnEndWave(object sender, System.EventArgs e)
