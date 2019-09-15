@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class TowerSelector : MonoBehaviour
 {
 	SpriteRenderer preview;
+	TowerStatusViewer statusViewer;
 	GameObject cursor;
 
 	public TowerBase CurrentTower { get; private set; } = null;
@@ -14,6 +15,8 @@ public class TowerSelector : MonoBehaviour
 	private void Awake()
 	{
 		preview = GameObject.FindWithTag("TowerPreview").GetComponent<SpriteRenderer>();
+
+		statusViewer = GameObject.FindWithTag("StatusBox").GetComponent<TowerStatusViewer>();
 		
 		cursor = GameObject.FindWithTag("Cursor");
 	}
@@ -36,6 +39,8 @@ public class TowerSelector : MonoBehaviour
 
 		preview.sprite = Resources.Load<Sprite>($"Images/Towers/{sender.name}");
 		CurrentTower = sender.GetComponent<TowerBase>();
+
+		statusViewer.UpdateToPreview();
 
 		cursor.SetActive(false);
 	}

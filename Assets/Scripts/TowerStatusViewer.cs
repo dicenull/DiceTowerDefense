@@ -13,10 +13,10 @@ public class TowerStatusViewer : MonoBehaviour
 	private Button upgradeBtn, deleteBtn;
 	private GameObject cursor;
 
-	private TowerBase tower, previewTower;
 	private MoneyController moneyCon;
 
-	private bool onField = false;
+	private TowerBase tower;
+	private TowerSelector towerSelector;
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +29,13 @@ public class TowerStatusViewer : MonoBehaviour
 
 		preview = transform.Find("Preview").GetComponent<Image>();
 		level = transform.Find("Level").GetComponent<Text>();
-
 		upgradeBtn = transform.Find("UpgradeButton").GetComponent<Button>();
 		deleteBtn = transform.Find("DeleteButton").GetComponent<Button>();
 
 		cursor = GameObject.FindWithTag("Cursor");
 
 		moneyCon = Singleton.GetInstance<MoneyController>();
+		towerSelector = GameObject.FindWithTag("TowerSelector").GetComponent<TowerSelector>();
 	}
 
     // Update is called once per frame
@@ -57,14 +57,26 @@ public class TowerStatusViewer : MonoBehaviour
 
 			updateStatus();
 		}
+	}
+	public void UpdateToPreview()
+	{
+		tower = towerSelector.CurrentTower;
 
-		if(onField)
-		{
-			upgradeBtn.interactable = (tower.UpgradeCost <= moneyCon.Data);
-		}
+		var sprite = tower.gameObject.GetComponent<Image>().sprite;
+
+		updateStatus(tower, sprite, Color.white);
+		inactiveUI();
 	}
 
-	public void updateStatus()
+	private void updateStatus()
+	{
+		var towerSpriteRen = tower.gameObject.GetComponent<SpriteRenderer>();
+
+		updateStatus(this.tower, towerSpriteRen.sprite, towerSpriteRen.color);
+	}
+
+
+	private void updateStatus(TowerBase tower, Sprite sprite, Color color)
 	{
 		for (var i = 0; i < names.Length; i++)
 		{
@@ -84,25 +96,11 @@ public class TowerStatusViewer : MonoBehaviour
 
 		level.text = $"Lv. {tower.Level}";
 
-		if(tower.gameObject.GetComponent<SpriteRenderer>() != null)
-		{
-			// フィールド上のタワー
-			var renderer = tower.gameObject.GetComponent<SpriteRenderer>();
-			preview.sprite = renderer.sprite;
-			preview.color = renderer.color;
+		preview.sprite = sprite;
+		preview.color = color;
 
-			deleteBtn.interactable = true;
-			onField = true;
-		}
-		else
-		{
-			// 設置前のプレビュータワー
-			previewTower = tower;
-			preview.sprite = tower.gameObject.GetComponent<Image>().sprite;
-			preview.color = Color.white;
-
-			inactiveUI();
-		}
+		upgradeBtn.interactable = (tower.UpgradeCost <= moneyCon.Data);
+		deleteBtn.interactable = true;
 	}
 
 	public void Upgrade()
@@ -120,15 +118,10 @@ public class TowerStatusViewer : MonoBehaviour
 
 	public void Refund()
 	{
-		var moneyCon = Singleton.GetInstance<MoneyController>();
-
 		moneyCon.Recieve(tower.Refund);
 		Destroy(tower.gameObject);
 
-		tower = previewTower;
-		updateStatus();
-
-		inactiveUI();
+		UpdateToPreview();
 	}
 
 	private void inactiveUI()
@@ -136,6 +129,5 @@ public class TowerStatusViewer : MonoBehaviour
 		cursor.SetActive(false);
 		upgradeBtn.interactable = false;
 		deleteBtn.interactable = false;
-		onField = false;
 	}
 }
