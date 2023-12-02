@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SpawnPoint
+  - Singleton
+  - GameData
+  - Pause
+  - HpBar
+  - TowerPreview
+  - StatusBox
+  - Cursor
+  - WaitSlider
+  - EnemyManager
+  - TowerSelector
   layers:
   - Default
   - TransparentFX

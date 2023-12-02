@@ -20,7 +20,8 @@ public class TowerRangeDrawer : MonoBehaviour
 		var mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		var tilemapPoint = tilemap.WorldToCell(mousePoint);
 		
-		var tile = tilemap.GetTile(tilemapPoint) as TowerTileBase;
+		/*
+		var tile = tilemap.GetTile(tilemapPoint) as TowerBase;
 		if (tile != null)
 		{
 			circle.SetActive(true);
@@ -34,5 +35,6 @@ public class TowerRangeDrawer : MonoBehaviour
 			circle.SetActive(false);
 
 		}
+		*/
     }
 }
